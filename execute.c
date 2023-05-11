@@ -1,5 +1,12 @@
 #include "shell.h"
 
+/**
+ * exexute - Function that execute the prompte commands
+ * @cmd: Pointer to the command
+ * @argv: Pointer to command's arguments
+ * Return: Integer
+*/
+
 int execute(char *cmd, char *argv[])
 {
     pid_t pid;
