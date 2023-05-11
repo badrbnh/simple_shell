@@ -1,2 +1,1 @@
-# simple_shell
-Simple implementation of a shell in C
+<h1 align="center">Simple Shell</h1>
