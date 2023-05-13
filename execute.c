@@ -7,7 +7,7 @@
  * Return: Integer
 */
 
-int execute(char *cmd, char *argv[])
+int execute(char *cmd, char *argv[], char **av)
 {
     pid_t pid;
     int status;
@@ -21,7 +21,7 @@ int execute(char *cmd, char *argv[])
     else if (pid == 0)
     {
         if (execve(cmd, argv, NULL) == -1) {
-            printf("No such file or directory\n");
+            printf("%s: No such file or directory\n", av[0]);
             exit(EXIT_FAILURE);
         }
     }
