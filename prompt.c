@@ -1,10 +1,16 @@
 #include "shell.h"
+/**
+ * prompt - Function that prompts the user for input
+ * @argv: Pointer to array of arguments
+ * Return: Integer
+ */
 
 int prompt(char **argv)
 {
     char *line = NULL;
     size_t len = 0;
     ssize_t read;
+    char **tokens;
     int status = 1;
 
     while (status)
@@ -15,30 +21,12 @@ int prompt(char **argv)
         {
             break;
         }
-        if (line[0] == '\n' )
+        if (line[0] == '\n')
             continue;
 
-        char *token;
-        char *tokens[100];
-        int i = 0;
-
-        token = strtok(line, " \t\n");
-        while (token != NULL && i < 99)
-        {
-            tokens[i] = token;
-            token = strtok(NULL, " \t\n");
-            i++;
-        }
-        tokens[i] = NULL;
-
-        if (strcmp(tokens[0], "exit") == 0)
-        {
-            status = 0;
-        }
-        else if (i > 0)
-        {
-            execute(tokens[0], tokens, argv);
-        }
+        tokens = split(line);
+        execute(tokens[0], tokens, argv);
+        free(tokens);
     }
 
     free(line);

@@ -1,11 +1,12 @@
 #include "shell.h"
 
 /**
- * exexute - Function that execute the prompte commands
+ * execute - Function that executes the command
  * @cmd: Pointer to the command
  * @argv: Pointer to command's arguments
+ * @av: Pointer to the array of arguments
  * Return: Integer
-*/
+ */
 
 int execute(char *cmd, char *argv[], char **av)
 {
@@ -20,7 +21,8 @@ int execute(char *cmd, char *argv[], char **av)
     }
     else if (pid == 0)
     {
-        if (execve(cmd, argv, NULL) == -1) {
+        if (execve(cmd, argv, NULL) == -1)
+        {
             printf("%s: No such file or directory\n", av[0]);
             exit(EXIT_FAILURE);
         }
