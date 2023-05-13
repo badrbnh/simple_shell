@@ -17,7 +17,7 @@ int prompt(char **argv)
     {
         printf("$ ");
         read = getline(&line, &len, stdin);
-        if (read == -1)
+        if (read == -1 || feof(stdin))
             break;
         
         if (line[0] == '\n')

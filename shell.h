@@ -16,7 +16,6 @@ int execute(char *cmd, char *argv[], char **av);
 void hundle_ctrl(int signal);
 int prompt(char **argv);
 char **split(char *line);
-void hundle_term(int signal);
 
 
 
