@@ -1,8 +1,16 @@
 #include "shell.h"
-
-int main(int argc, char *argv[])
+/**
+ * main - main function of the program
+ * @argc: number of arguments
+ * @argv: the arguments
+ * @envp: the environment
+ * Return: Integer
+*/
+int main(int argc, char **argv, char **envp)
 {
-    signal(SIGINT, hundle_ctrl);
-    prompt(argv);
-    return 0;
+	signal(SIGINT, hundle_ctrl);
+
+	prompt(argv, envp);
+
+	return (0);
 }
