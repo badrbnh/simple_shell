@@ -1,4 +1,4 @@
-#include "main.h"
+i#include "main.h"
 
 size_t _strlen(const char *str) {
     size_t len = 0;
@@ -71,4 +71,20 @@ new_str[i] = str[i];
 i++;
 }
 return (new_str);
+}
+
+int _strcmp(char *s1, char *s2)
+{
+int i = 0, n;
+while (s1[i] != '\0')
+{
+n = s1[i] - s2[i];
+if (n != 0)
+{
+break;
+}
+i++;
+}
+n = s1[i] - s2[i];
+return (n);
 }

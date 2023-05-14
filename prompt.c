@@ -14,19 +14,19 @@ int prompt(void) {
         len = 0;
         str = NULL;
         while (chk < 2) {
-            printf("$ ");
+            write(1, "$ ", 2);
             chk = getline(&str, &len, stdin);
             if (chk == -1) {
-                write(1, "Exiting command line\n", strlen("Exiting command line\n"));
+                write(1, "Exiting command line\n", _strlen("Exiting command line\n"));
                 return (cmd);
             }
         }
         
         args = str_split(str);
-        //handle_path(args);
+        handle_path(args);
         execute(args);
-    /*
-        while (args [i]) {
+    // just to test
+    /*  while (args [i]) {
     
             printf ("Token %d: %s\n", i, args[i]);
             i++;

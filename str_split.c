@@ -3,7 +3,7 @@
 
 /**
  * str_split - Splits a string
- * @str: The string that will be split
+ * @str: The string to split
  * Return: On success, it returns the new array
  * of strings. On failure, it returns NULL
  */
@@ -12,7 +12,7 @@ char **str_split(char *str)
     char *token = NULL, **args = NULL, *temp = NULL;
     int i = 0, n = 0;
 
-    if (!str || !" \n\t")
+    if (!str)
     {
         return (NULL);
     }
@@ -20,7 +20,7 @@ char **str_split(char *str)
     token = strtok(temp, " \n\t");
     while (token)
     {
-        if (strcmp(token, "\n") != 0)
+        if (_strcmp(token, "\n") != 0)
         {
             n++;
         }
@@ -31,8 +31,8 @@ char **str_split(char *str)
     token = strtok(str, " \n\t");
     for (i = 0; token; i++)
     {
-        args[i] = (char *)malloc(sizeof(char) * (strlen(token) + 1));
-        strcpy(args[i], token);
+        args[i] = (char *)malloc(sizeof(char) * (_strlen(token) + 1));
+        _strcpy(args[i], token);
         token = strtok(NULL, " \n\t");
     }
 

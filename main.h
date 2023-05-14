@@ -9,6 +9,7 @@
 #include <sys/wait.h>
 
 size_t _strlen(const char *str);
+int _strcmp(char *s1, char *s2);
 char *_strcat(char *dest, const char *src);
 char *_strcpy(char *dest, const char *src);
 char *_strdup(char *str);
