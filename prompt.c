@@ -17,26 +17,38 @@ int prompt(char **argv, char **envp)
 
 	while (status)
 	{
-		printf("$ ");
+		_puts("$ ");
 		read = getline(&line, &len, stdin);
 		if (read == -1 || feof(stdin))
 		{
-			_puts("exit");
+			if (line != NULL)
+				free(line);
 			break;
 		}
 		if (line[0] == '\n')
 			continue;
 
 		tokens = split(line);
-		if (strcmp(tokens[0], "exit") == 0) {
+		if (tokens == NULL)
+		{
+			free(line);
+			continue;
+		}
+		if (strcmp(tokens[0], "exit") == 0)
+		{
 			status = 0;
 			free(tokens);
 			break;
 		}
-		execute(tokens[0], tokens, argv, envp);
+		int execute_status = execute(tokens[0], tokens, argv, envp);
+		if (execute_status == -1)
+		{
+			free(tokens);
+			break;
+		}
 		free(tokens);
 	}
 	exit_shell(status);
 	free(line);
-	return (0);
+	return 0;
 }

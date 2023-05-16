@@ -18,13 +18,13 @@ int execute(char *cmd, char *argv[], char **av, char **envp)
 	pid = fork();
 	if (pid == (-1))
 	{
-		perror("Failed to fork process");
+		perror(av[0]);
 		free(full_path);
 		return (-1);
 	}
 	else if (pid == 0)
 	{
-		if (execve(full_path, argv, envp) == -1)
+		if (execve(full_path, argv, envp) == -1 && execve(cmd, argv, NULL) == -1)
 		{
 			errno = ENOENT;
 			perror(av[0]);
@@ -36,7 +36,7 @@ int execute(char *cmd, char *argv[], char **av, char **envp)
 	{
 		if (waitpid(pid, &status, 0) == -1)
 		{
-			perror("Failed to wait for child process");
+			perror(av[0]);
 			free(full_path);
 			return (-1);
 		}

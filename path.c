@@ -8,7 +8,7 @@
 
 char *path(char *cmd)
 {
-	char *path = getenv("PATH");
+	char *path = _getenv("PATH");
 	char *token, *path_copy;
 	char *full_path = NULL;
 

@@ -13,7 +13,7 @@
 #define MAX_INPUT_SIZE 1024
 
 
-int execute(char *cmd, char *argv[], char **av, char **envp);
+int execute(char *cmd, char **argv, char **av, char **envp);
 void hundle_ctrl(int signal);
 int prompt(char **argv, char **envp);
 char **split(char *line);
@@ -23,6 +23,9 @@ void _puts(char *str);
 int _putchar(char c);
 char *path(char *cmd);
 void exit_shell(int status);
+void print_environment(char **envp);
+char *_getenv(const char *name);
+
 
 
 
