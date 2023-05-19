@@ -8,6 +8,7 @@
 */
 int main(int argc, char **argv, char **envp)
 {
+	(void)argc;
 	signal(SIGINT, hundle_ctrl);
 
 	prompt(argv, envp);

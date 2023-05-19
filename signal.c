@@ -8,5 +8,6 @@
 
 void hundle_ctrl(int signal)
 {
+	(void)signal;
 	write(1, "\n$ ", 4);
 }

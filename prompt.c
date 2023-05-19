@@ -14,6 +14,7 @@ int prompt(char **argv, char **envp)
 	ssize_t read;
 	char **tokens;
 	int status = 1;
+	int execute_status;
 
 	while (status)
 	{
@@ -34,13 +35,13 @@ int prompt(char **argv, char **envp)
 			free(line);
 			continue;
 		}
-		if (strcmp(tokens[0], "exit") == 0)
+		if (_strcmp(tokens[0], "exit") == 0)
 		{
 			status = 0;
 			free(tokens);
 			break;
 		}
-		int execute_status = execute(tokens[0], tokens, argv, envp);
+		execute_status = execute(tokens[0], tokens, argv, envp);
 		if (execute_status == -1)
 		{
 			free(tokens);
@@ -50,5 +51,5 @@ int prompt(char **argv, char **envp)
 	}
 	exit_shell(status);
 	free(line);
-	return 0;
+	return (0);
 }

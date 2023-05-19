@@ -9,9 +9,7 @@
 #include <signal.h>
 #include <errno.h>
 
-
 #define MAX_INPUT_SIZE 1024
-
 
 int execute(char *cmd, char **argv, char **av, char **envp);
 void hundle_ctrl(int signal);
@@ -25,12 +23,7 @@ char *path(char *cmd);
 void exit_shell(int status);
 void print_environment(char **envp);
 char *_getenv(const char *name);
-
-
-
-
-
-
+int _strcmp(char *s1, char *s2);
 
 
 #endif

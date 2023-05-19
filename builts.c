@@ -18,6 +18,7 @@ void exit_shell(int status)
 void print_environment(char **envp)
 {
 	int i = 0;
+
 	while (envp[i] != NULL)
 	{
 		_puts(envp[i]);

@@ -41,4 +41,5 @@ int execute(char *cmd, char *argv[], char **av, char **envp)
 			return (-1);
 		}
 	}
+	return (0);
 }
