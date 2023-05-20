@@ -5,7 +5,7 @@ int prompt(void) {
     int i, cmd = 0;
     size_t len;
     ssize_t chk;
-    char *str, **args;
+    char *str, **args, cwd[MAX_PATH_SIZE];
     
     while (1) {
         
@@ -13,8 +13,15 @@ int prompt(void) {
         i = 0;
         len = 0;
         str = NULL;
+        if (getcwd(cwd, sizeof(cwd))) {
+            _strcat(cwd, "$ ");
+        }
+        else {
+            perror("Couldn't get current working directory\n");
+            return (-1);
+        }
         while (chk < 2) {
-            write(1, "$ ", 2);
+            printf("%s", cwd);
             chk = getline(&str, &len, stdin);
             if (chk == -1) {
                 write(1, "Exiting command line\n", _strlen("Exiting command line\n"));
@@ -23,10 +30,9 @@ int prompt(void) {
         }
         
         args = str_split(str);
-        handle_path(args);
         execute(args);
-    // just to test
-    /*  while (args [i]) {
+    /*
+        while (args [i]) {
     
             printf ("Token %d: %s\n", i, args[i]);
             i++;

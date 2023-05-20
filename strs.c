@@ -1,4 +1,4 @@
-i#include "main.h"
+#include "main.h"
 
 size_t _strlen(const char *str) {
     size_t len = 0;

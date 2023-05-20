@@ -2,18 +2,28 @@
 
 int execute(char **argv) {
     pid_t id, status;
+    char *path;
+    char **env;
     if (argv == NULL) {
-        return (0);
+        return(-1);
     }
     if ((id = fork()) == -1) {
         perror("Error while creating a process");
-        return (1);
+        exit(EXIT_FAILURE);
     }
     if (id == 0)    {
-        if (execve(argv[0], argv, NULL) == -1) {
-            perror("Error while executing command:");
-            return(2);
+        path = get_path(argv[0]);
+        if (path == NULL) {
+            perror("Error path not found:");
+            return(-1);
         }
+        env = get_env_var();
+        if (execve(path, argv, env) == -1) {
+            perror("Error while executing command:");
+            free(path);
+            return(-1);
+        }
+        free(path);
     }
     else {
         if (waitpid(id, &status, 0) == -1) {
@@ -23,13 +33,7 @@ int execute(char **argv) {
             if (WIFEXITED(status)) {
                 return (WEXITSTATUS(status));
             }
-            else {
-                perror("Child process terminated abnormally\n");
-                return(-1);
-            }
         }
-    
-        write(1, "Execution success\n", _strlen("Execution success\n"));
     }
     return(0);
 }

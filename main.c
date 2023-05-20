@@ -3,7 +3,7 @@
 int main ()
 {
     int cmd = prompt();
-    printf("Commands run : %d\n", cmd);
+    printf("Commands run : %d\n", cmd); //just for testing signals
     return (0);
     
 }
