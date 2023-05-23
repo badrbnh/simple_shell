@@ -20,7 +20,7 @@ int prompt(char **argv, char **envp)
 	{
 		_puts("$ ");
 		read = getline(&line, &len, stdin);
-		if (read == -1 || feof(stdin))
+		if (read == -1)
 		{
 			if (line != NULL)
 				free(line);

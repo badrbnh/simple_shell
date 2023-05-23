@@ -11,6 +11,8 @@
 
 #define MAX_INPUT_SIZE 1024
 
+extern char **environ;
+
 int execute(char *cmd, char **argv, char **av, char **envp);
 void hundle_ctrl(int signal);
 int prompt(char **argv, char **envp);
