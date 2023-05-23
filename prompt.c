@@ -13,8 +13,11 @@ int prompt(char **argv, char **envp)
 	size_t len = 0;
 	ssize_t read;
 	char **tokens;
-	int status = 1;
+	int status;
 	int execute_status;
+
+	if ((isatty(STDIN_FILENO) == 1) && (isatty(STDOUT_FILENO) == 1))
+		status = 1;
 
 	while (status)
 	{
