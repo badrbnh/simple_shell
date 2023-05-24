@@ -25,8 +25,7 @@ int execute(char *cmd, char *argv[], char **av, char **envp)
 	else if (pid == 0)
 	{
 		if (execve(full_path, argv, envp) == -1 && execve(cmd, argv, NULL) == -1)
-		{
-			errno = ENOENT;
+	  	{
 			perror(av[0]);
 			free(full_path);
 			exit(EXIT_FAILURE);
