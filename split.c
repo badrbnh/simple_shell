@@ -27,15 +27,5 @@ char **split(char *line)
 	}
 	tokens[i] = NULL;
 
-	if (token == NULL && i == 99)
-	{
-		perror("Exceeded maximum number of tokens");
-		exit(EXIT_FAILURE);
-	}
-
-	if (i < 99)
-		tokens[i + 1] = NULL;
-
-	return tokens;
+	return (tokens);
 }
-

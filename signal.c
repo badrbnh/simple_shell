@@ -9,6 +9,5 @@
 void hundle_ctrl(int signal)
 {
 	(void)signal;
-	write(STDERR_FILENO, "\n", 1);
-	write(STDERR_FILENO, "$ ", 2);
+	write(1, "\n$ ", 4);
 }

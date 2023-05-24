@@ -1,93 +1,28 @@
 #include "shell.h"
 
 /**
- * __exit - function that exits the shell
- * @info: arguments.
- *  Return: exits with status
+ * exit_shell - Function that exits the shell
+ * @status: Exit status
+ * Return: Void
  */
-int __exit(info_t *info)
-{
-	int check;
 
-	if (info->argv[1])
-	{
-		check = _erratoi(info->argv[1]);
-		if (check == -1)
-		{
-			info->status = 2;
-			print_error(info, "Illegal number: ");
-			_eputs(info->argv[1]);
-			_eputchar('\n');
-			return (1);
-		}
-		info->err_num = _erratoi(info->argv[1]);
-		return (-2);
-	}
-	info->err_num = -1;
-	return (-2);
+void exit_shell(int status)
+{
+	exit(status);
 }
 
 /**
- * __cd - changes the current directory.
- * @info: arguments
- *  Return: 0
+ * print_environment - Function that prints the current environment variables
+ * @envp: Pointer to the environment variables
  */
-int __cd(info_t *info)
+void print_environment(char **envp)
 {
-	char *str, *dir, buffer[1024];
-	int chdir_ret;
+	int i = 0;
 
-	str = getcwd(buffer, 1024);
-	if (!str)
-		_puts("TODO: >>getcwd failure emsg here<<\n");
-	if (!info->argv[1])
+	while (envp[i] != NULL)
 	{
-		dir = _getenv(info, "HOME=");
-		if (!dir)
-			chdir_ret =
-				chdir((dir = _getenv(info, "PWD=")) ? dir : "/");
-		else
-			chdir_ret = chdir(dir);
+		_puts(envp[i]);
+		_puts("\n");
+		i++;
 	}
-	else if (_strcmp(info->argv[1], "-") == 0)
-	{
-		if (!_getenv(info, "OLDPWD="))
-		{
-			_puts(str);
-			_putchar('\n');
-			return (1);
-		}
-		_puts(_getenv(info, "OLDPWD=")), _putchar('\n');
-		chdir_ret =
-			chdir((dir = _getenv(info, "OLDPWD=")) ? dir : "/");
-	}
-	else
-		chdir_ret = chdir(info->argv[1]);
-	if (chdir_ret == -1)
-	{
-		print_error(info, "can't cd to ");
-		_eputs(info->argv[1]), _eputchar('\n');
-	}
-	else
-	{
-		_setenv(info, "OLDPWD", _getenv(info, "PWD="));
-		_setenv(info, "PWD", getcwd(buffer, 1024));
-	}
-	return (0);
-}
-
-/**
- * __help - changes the directory.
- * @info: arguments.
- *  Return: 0
- */
-int __help(info_t *info)
-{
-	char **arg_array;
-
-	arg_array = info->argv;
-	_puts("help call works. Function not yet implemented \n");
-	if (0)
-		_puts(*arg_array);
-	return (0);
 }
