@@ -18,6 +18,7 @@ int prompt(char **argv, char **envp)
 
     while (status)
     {
+		line = NULL;
         _puts("$ ");
         read = getline(&line, &len, stdin);
         if (read == -1 || feof(stdin))
@@ -38,6 +39,7 @@ int prompt(char **argv, char **envp)
         if (_strcmp(tokens[0], "exit") == 0)
         {
             status = 0;
+            free(tokens);
             break;
         }
         execute_status = execute(tokens[0], tokens, argv, envp);
@@ -45,6 +47,5 @@ int prompt(char **argv, char **envp)
         if (execute_status == -1)
             break;
     }
-    free(line);
     return execute_status;
 }

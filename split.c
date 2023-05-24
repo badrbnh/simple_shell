@@ -40,5 +40,11 @@ char **split(char *line)
     }
     tokens[i] = NULL;
 
+    if (i >= 99)
+    {
+        free(tokens);
+        return NULL;
+    }
+
     return tokens;
 }

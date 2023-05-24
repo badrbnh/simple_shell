@@ -53,6 +53,7 @@ int execute(char *cmd, char *argv[], char **av, char **envp)
         if (execve(full_path, argv, envp) == -1)
         {
             perror(av[0]);
+            free(full_path);
             exit(EXIT_FAILURE);
         }
     }
@@ -61,7 +62,6 @@ int execute(char *cmd, char *argv[], char **av, char **envp)
         if (waitpid(pid, &status, 0) == -1)
         {
             perror(av[0]);
-            free(full_path);
             return (-1);
         }
     }
