@@ -1,49 +1,86 @@
 #include "shell.h"
 
 /**
- * find_command - finds command to execute in path routes.
+ * is_cmd - determines if a file is an executable command
+ * @info: the info struct
+ * @path: path to the file
  *
- * @command: first position of getline input.
- *
- * Return: string of folder for command to be executed.
- **/
-char *find_command(char *command)
+ * Return: 1 if true, 0 otherwise
+ */
+int is_cmd(info_t *info, char *path)
 {
-	DIR *folder;
-	struct dirent *entry;
-	char *cmd, comp, **str = malloc(sizeof(char) * 1024);
-	char **split = malloc(sizeof(char) * 1024);
-	int i;
+	struct stat st;
 
-	while (*environ != NULL)
+	(void)info;
+	if (!path || stat(path, &st))
+		return (0);
+
+	if (st.st_mode & S_IFREG)
 	{
-		if (!(_strcmpdir(*environ, "PATH")))
-		{
-			*str = *environ;
-			for (i = 0; i < 9; i++, split++, str++)
-			{
-				*split = strtok(*str, ":='PATH'");
-				folder = opendir(*split);
-				if (folder == NULL)
-				{
-					perror("Unable to read directory");
-				}
-				while ((entry = readdir(folder)))
-				{
-					cmd = entry->d_name;
-					comp = _strcmpdir(cmd, command);
-					if (comp == 0)
-					{
-						return (*split);
-					}
-					if (cmd == NULL)
-					{
-						perror("Error");
-					}
-				}
-			}
-		}
-		environ++;
+		return (1);
 	}
-	return ("Error: Not Found");
+	return (0);
+}
+
+/**
+ * dup_chars - duplicates characters
+ * @pathstr: the PATH string
+ * @start: starting index
+ * @stop: stopping index
+ *
+ * Return: pointer to new buffer
+ */
+char *dup_chars(char *pathstr, int start, int stop)
+{
+	static char buf[1024];
+	int i = 0, k = 0;
+
+	for (k = 0, i = start; i < stop; i++)
+		if (pathstr[i] != ':')
+			buf[k++] = pathstr[i];
+	buf[k] = 0;
+	return (buf);
+}
+
+/**
+ * find_path - finds this cmd in the PATH string
+ * @info: the info struct
+ * @pathstr: the PATH string
+ * @cmd: the cmd to find
+ *
+ * Return: full path of cmd if found or NULL
+ */
+char *find_path(info_t *info, char *pathstr, char *cmd)
+{
+	int i = 0, curr_pos = 0;
+	char *path;
+
+	if (!pathstr)
+		return (NULL);
+	if ((_strlen(cmd) > 2) && starts_with(cmd, "./"))
+	{
+		if (is_cmd(info, cmd))
+			return (cmd);
+	}
+	while (1)
+	{
+		if (!pathstr[i] || pathstr[i] == ':')
+		{
+			path = dup_chars(pathstr, curr_pos, i);
+			if (!*path)
+				_strcat(path, cmd);
+			else
+			{
+				_strcat(path, "/");
+				_strcat(path, cmd);
+			}
+			if (is_cmd(info, path))
+				return (path);
+			if (!pathstr[i])
+				break;
+			curr_pos = i;
+		}
+		i++;
+	}
+	return (NULL);
 }
