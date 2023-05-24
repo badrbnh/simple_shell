@@ -8,6 +8,7 @@
 #include <sys/wait.h>
 #include <signal.h>
 #include <errno.h>
+#include <fcntl.h>
 
 #define MAX_INPUT_SIZE 1024
 
