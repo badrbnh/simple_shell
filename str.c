@@ -122,3 +122,15 @@ size_t _strlen1(const char *str)
     return len;
 }
 
+
+int _snprintf(char *str, size_t size, const char *format, ...)
+{
+    va_list args;
+    int result;
+
+    va_start(args, format);
+    result = vsnprintf(str, size, format, args);
+    va_end(args);
+
+    return result;
+}
