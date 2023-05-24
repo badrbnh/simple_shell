@@ -12,6 +12,8 @@
 
 #define MAX_INPUT_SIZE 1024
 
+extern char **environ;
+
 int execute(char *cmd, char **argv, char **av, char **envp);
 void hundle_ctrl(int signal);
 int prompt(char **argv, char **envp);
@@ -26,6 +28,9 @@ void print_environment(char **envp);
 char *_getenv(const char *name);
 int _strcmp(char *s1, char *s2);
 char *_strcpy(char *dest, char *src);
+int _strncmp(const char *s1, const char *s2, size_t n);
+size_t _strlen1(const char *str);
+
 
 
 
