@@ -19,7 +19,8 @@ int prompt(char **argv, char **envp)
     while (status)
     {
 		line = NULL;
-        _puts("$ ");
+		if(isatty(0))
+        	_puts("$ ");
         read = getline(&line, &len, stdin);
         if (read == -1 || feof(stdin))
         {
