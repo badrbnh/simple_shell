@@ -1,49 +1,49 @@
 #include "shell.h"
 
 /**
- * path - Function that finds the full path of a command
- * @cmd: Pointer to the command
- * Return: Pointer to the full path of the command, or NULL if not found
- */
-
-char *path(char *cmd)
+ * find_command - finds command to execute in path routes.
+ *
+ * @command: first position of getline input.
+ *
+ * Return: string of folder for command to be executed.
+ **/
+char *find_command(char *command)
 {
-	char *path = _getenv("PATH");
-	char *token, *path_copy;
-	char *full_path = NULL;
+	DIR *folder;
+	struct dirent *entry;
+	char *cmd, comp, **str = malloc(sizeof(char) * 1024);
+	char **split = malloc(sizeof(char) * 1024);
+	int i;
 
-	path_copy = strdup(path);
-	if (path_copy == NULL)
+	while (*environ != NULL)
 	{
-		perror("Failed to allocate memory");
-		return NULL;
-	}
-
-	token = strtok(path_copy, ":");
-	while (token != NULL)
-	{
-		full_path = malloc(_strlen(token) + _strlen(cmd) + 2);
-		if (full_path == NULL)
+		if (!(_strcmpdir(*environ, "PATH")))
 		{
-			perror("Failed to allocate memory");
-			free(path_copy);
-			return NULL;
+			*str = *environ;
+			for (i = 0; i < 9; i++, split++, str++)
+			{
+				*split = strtok(*str, ":='PATH'");
+				folder = opendir(*split);
+				if (folder == NULL)
+				{
+					perror("Unable to read directory");
+				}
+				while ((entry = readdir(folder)))
+				{
+					cmd = entry->d_name;
+					comp = _strcmpdir(cmd, command);
+					if (comp == 0)
+					{
+						return (*split);
+					}
+					if (cmd == NULL)
+					{
+						perror("Error");
+					}
+				}
+			}
 		}
-		sprintf(full_path, "%s/%s", token, cmd);
-		if (access(full_path, X_OK) == 0)
-			break;
-		free(full_path);
-		full_path = NULL;
-		token = strtok(NULL, ":");
+		environ++;
 	}
-
-	free(path_copy);
-
-	if (full_path == NULL)
-	{
-		free(full_path);
-	}
-
-	return full_path;
+	return ("Error: Not Found");
 }
-

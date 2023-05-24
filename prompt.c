@@ -1,59 +1,51 @@
 #include "shell.h"
 
 /**
- * prompt - Function that prompts the user for input
- * @argv: Pointer to array of arguments
- * @envp: Pointer the environment
- * Return: Integer
- */
-
-int prompt(char **argv, char **envp)
+ * prompt - call prompt from another function (prompt)
+ *
+ **/
+void prompt(void)
 {
-	char *line = NULL;
-	size_t len = 0;
-	ssize_t read;
-	char **tokens;
-	int status;
-	int execute_status;
-
-	if ((isatty(STDIN_FILENO) == 1) && (isatty(STDOUT_FILENO) == 1))
-		status = 1;
-
-	while (status)
+	for (;;)
 	{
-		_puts("$ ");
-		read = getline(&line, &len, stdin);
-		if (read == -1)
-		{
-			if (line != NULL)
-				free(line);
-			break;
-		}
-		if (line[0] == '\n')
-			continue;
+		char *text = NULL, **environ;
+		pid_t child_pid;
+		int status, lenbuf;
+		size_t bufsize = 0;
 
-		tokens = split(line);
-		if (tokens == NULL)
+		place("$ ");
+		lenbuf = getline(&text, &bufsize, stdin);
+		if (lenbuf == -1)
+			exit(98);
+		if (compareExit(text, "exit") == 0)
+			exit(0);
+		if (compareEnv(text, "env") == 0)
 		{
-			free(line);
-			continue;
+			while (*environ != NULL)
+			{
+				if (!(_strcmpdir(*environ, "USER")) ||
+					!(_strcmpdir(*environ, "LANGUAGE")) ||
+					!(_strcmpdir(*environ, "SESSION")) ||
+					!(_strcmpdir(*environ, "COMPIZ_CONFIG_PROFILE")) ||
+					!(_strcmpdir(*environ, "SHLV")) ||
+					!(_strcmpdir(*environ, "HOME")) ||
+					!(_strcmpdir(*environ, "C_IS")) ||
+					!(_strcmpdir(*environ, "DESKTOP_SESSION")) ||
+					!(_strcmpdir(*environ, "LOGNAME")) ||
+					!(_strcmpdir(*environ, "TERM")) ||
+					!(_strcmpdir(*environ, "PATH")))
+				{
+					place(*environ), place("\n");
+				}
+				environ++;
+			}
 		}
-		if (_strcmp(tokens[0], "exit") == 0)
-		{
-			status = 0;
-			free(tokens);
-			break;
-		}
-		execute_status = execute(tokens[0], tokens, argv, envp);
-		if (execute_status == -1)
-		{
-			free(tokens);
-			break;
-		}
-		free_tokens(tokens);
+		child_pid = fork();
+		if (child_pid < 0)
+			perror("Error");
+		if (child_pid == 0)
+			identify_string(text);
+		else
+			wait(&status);
 	}
-	exit_shell(status);
-	free(line);
-	return 0;
 }
-

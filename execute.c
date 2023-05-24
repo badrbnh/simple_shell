@@ -1,45 +1,48 @@
 #include "shell.h"
-
 /**
- * execute - Function that executes the command
- * @cmd: Pointer to the command
- * @argv: Pointer to command's arguments
- * @envp: Pointer to environment variables
- * @av: Pointer to arguments
- * Return: Integer
+ * execute_proc - similar to puts in C
+ * @cmd: a pointer the integer we want to set to 402
+ *
+ * Return: int
  */
-
-int execute(char *cmd, char *argv[], char **av, char **envp)
+void execute_proc(char **cmd)
 {
-	pid_t pid;
-	int status;
-	char *full_path = path(cmd);
 
-	pid = fork();
-	if (pid == (-1))
+	char *parametro = (*(cmd + 1));
+	char *s, *slash = "/";
+	char *o;
+
+	char *vartoprint = *cmd;
+	char *argv[4];
+
+	if ((access(cmd[0], F_OK) == 0))
 	{
-		perror(av[0]);
-		free(full_path);
-		return (-1);
-	}
-	else if (pid == 0)
-	{
-		if (execve(full_path, argv, envp) == -1 && execve(cmd, argv, NULL) == -1)
+		argv[0] = cmd[0];
+		argv[1] = parametro;
+		argv[2] = ".";
+		argv[3] = NULL;
+
+		if (execve(argv[0], argv, NULL) == -1)
 		{
-			errno = ENOENT;
-			perror(av[0]);
-			free(full_path);
-			exit(EXIT_FAILURE);
+			perror("Error");
 		}
 	}
 	else
 	{
-		if (waitpid(pid, &status, 0) == -1)
+		o = find_command(vartoprint);
+
+		slash = str_concat(o, slash);
+
+		s = str_concat(slash, *cmd);
+
+		argv[0] = s;
+		argv[1] = parametro;
+		argv[2] = ".";
+		argv[3] = NULL;
+
+		if (execve(argv[0], argv, NULL) == -1)
 		{
-			perror(av[0]);
-			free(full_path);
-			return (-1);
+			perror("Error");
 		}
 	}
-	return (0);
 }

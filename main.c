@@ -1,17 +1,17 @@
 #include "shell.h"
+
 /**
- * main - main function of the program
- * @argc: number of arguments
- * @argv: the arguments
- * @envp: the environment
- * Return: Integer
-*/
-int main(int argc, char **argv, char **envp)
+ * main - func with infinite loop
+ * @ac: No use
+ * @av: No use
+ * Return: loop.
+ **/
+int main(int ac, char **av)
 {
-	(void)argc;
-	signal(SIGINT, hundle_ctrl);
+	(void)av;
+	(void)ac;
 
-	prompt(argv, envp);
-
+	signal(SIGINT, controlC);
+	prompt();
 	return (0);
 }
