@@ -10,8 +10,7 @@ size_t _strlen(const char *str) {
 
 int ncontain(const char *bigstr, const char *smlstr) {
     
-    size_t len = _strlen(smlstr);
-    int i;
+    size_t i, len = _strlen(smlstr);
     
     for (i = 0; i < len && bigstr[i] && smlstr[i]; i++) {
         if (bigstr[i] != smlstr[i]) {

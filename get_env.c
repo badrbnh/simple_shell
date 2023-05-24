@@ -2,7 +2,7 @@
 
 char *get_env(const char *var) {
         extern char **environ;
-        char *path, *token, *rval;
+        char *path = NULL, *token, *rval;
         int len = 0;
         if (var == NULL) {
             return (NULL);
@@ -25,7 +25,7 @@ char *get_env(const char *var) {
                     }
                     }
                     free(path);
-                    return (rval); //memory leak problem
+                    return (rval); /*memory leak problem*/
             }
             len++;
         }
