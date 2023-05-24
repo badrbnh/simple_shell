@@ -26,6 +26,8 @@ void exit_shell(int status);
 void print_environment(char **envp);
 char *_getenv(const char *name);
 int _strcmp(char *s1, char *s2);
+void free_tokens(char **tokens);
+
 
 
 #endif

@@ -16,7 +16,7 @@ char *path(char *cmd)
 	if (path_copy == NULL)
 	{
 		perror("Failed to allocate memory");
-		return (NULL);
+		return NULL;
 	}
 
 	token = strtok(path_copy, ":");
@@ -27,7 +27,7 @@ char *path(char *cmd)
 		{
 			perror("Failed to allocate memory");
 			free(path_copy);
-			return (NULL);
+			return NULL;
 		}
 		sprintf(full_path, "%s/%s", token, cmd);
 		if (access(full_path, X_OK) == 0)
@@ -36,6 +36,14 @@ char *path(char *cmd)
 		full_path = NULL;
 		token = strtok(NULL, ":");
 	}
+
 	free(path_copy);
-	return (full_path);
+
+	if (full_path == NULL)
+	{
+		free(full_path);
+	}
+
+	return full_path;
 }
+

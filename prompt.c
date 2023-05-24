@@ -50,9 +50,10 @@ int prompt(char **argv, char **envp)
 			free(tokens);
 			break;
 		}
-		free(tokens);
+		free_tokens(tokens);
 	}
 	exit_shell(status);
 	free(line);
-	return (0);
+	return 0;
 }
+
