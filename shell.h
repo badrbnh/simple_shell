@@ -12,6 +12,7 @@
 
 #define MAX_INPUT_SIZE 1024
 
+int _strncmp(const char * str1, const char * str2, size_t len);
 int execute(char *cmd, char **argv, char **av, char **envp);
 void hundle_ctrl(int signal);
 int prompt(char **argv, char **envp);
