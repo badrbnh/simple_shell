@@ -22,7 +22,7 @@ int _atoi(char *s)
 			break;
 		i++;
 	}
-	return (num * sign);
+	return ((num * sign));
 }
 
 
@@ -34,16 +34,53 @@ int _atoi(char *s)
  */
 bool is_num(const char *str)
 {
-    int i;
+	int i;
 
-    if (str == NULL || *str == '\0')
-        return false;
+	if (str == NULL || *str == '\0')
+		return (false);
 
-    for (i = 0; str[i] != '\0'; i++)
-    {
-        if (str[i] < '0' || str[i] > '9')
-            return false;
-    }
+	for (i = 0; str[i] != '\0'; i++)
+	{
+		if (str[i] < '0' || str[i] > '9')
+			return (false);
+	}
 
-    return true;
+	return (true);
+}
+
+
+
+
+/**
+ * _strlen1 - Function that returns the length of a string
+ * @str: Pointer to the string
+ * Return: Length of the string
+ */
+size_t _strlen1(const char *str)
+{
+	size_t len = 0;
+
+	while (str[len] != '\0')
+		len++;
+
+	return (len);
+}
+
+/**
+ * _snprintf - printd
+ * @str: string
+ * @size: size
+ * @format: format
+ * Return: Integer
+*/
+int _snprintf(char *str, size_t size, const char *format, ...)
+{
+	va_list args;
+	int result;
+
+	va_start(args, format);
+	result = vsnprintf(str, size, format, args);
+	va_end(args);
+
+	return (result);
 }

@@ -1,4 +1,37 @@
 #include "shell.h"
+
+/**
+ * _token - Function
+ * @line: line
+ * @argv: argv
+ * @envp: envp
+ * @ex: execute
+ * Return: Integer
+*/
+int _token(char *line, char **argv, char **envp, int *ex)
+{
+		char **tokens;
+
+			tokens = split(line);
+		if (tokens == NULL)
+		{
+			free(line);
+			return (0);
+		}
+		if (_strcmp(tokens[0], "exit") == 0)
+		{
+			free(line);
+			free(tokens);
+			return (1);
+		}
+		*ex = execute(tokens[0], tokens, argv, envp);
+		free(line);
+		free(tokens);
+		if (*ex == -1)
+			return (1);
+		return (0);
+
+}
 /**
  * prompt - Function that prompts the user for input
  * @argv: Pointer to array of arguments
@@ -7,6 +40,7 @@
  */
 int prompt(char **argv, char **envp)
 {
+<<<<<<< HEAD
 char *line = NULL;
 size_t len = 0;
 ssize_t read;
@@ -52,4 +86,33 @@ if (execute_status == -1)
 break;
 }
 return (execute_status);
+=======
+	char *line = NULL;
+	size_t len = 0;
+	ssize_t read;
+	int status = 1;
+	int execute_status = 0;
+
+	while (status)
+	{
+		line = NULL;
+		if (isatty(STDIN_FILENO))
+			write(STDOUT_FILENO, "$ ", 2);
+		read = getline(&line, &len, stdin);
+		if (read == -1)
+		{
+			if (line != NULL)
+				free(line);
+			break;
+		}
+		if (line[0] == '\n')
+	{
+		free(line);
+		continue;
+	}
+		if (_token(line, argv, envp, &execute_status) == 1)
+			break;
+	}
+	return (execute_status);
+>>>>>>> 6c39c1e214404a9085691deb79d1f1b12275742b
 }

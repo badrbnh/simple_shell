@@ -8,7 +8,7 @@
  */
 char *_getenv(const char *name)
 {
-	
+
 	size_t name_len = _strlen1(name);
 	char **env;
 

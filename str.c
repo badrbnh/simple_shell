@@ -1,13 +1,20 @@
 #include "shell.h"
+<<<<<<< HEAD
 #include <stdbool.h>
 
 /**
  * _strncmp - Function that compares two strings up to a specified
  * number of characters
+=======
+
+/**
+ * _strncmp - Function that compares two strings
+>>>>>>> 6c39c1e214404a9085691deb79d1f1b12275742b
  * @s1: Pointer to the first string
  * @s2: Pointer to the second string
  * @n: Number of characters to compare
  * Return:
+<<<<<<< HEAD
  *   - an integer less than, equal to, or greater than zero if the
  * first `n` characters
  *     of `s1` are respectively less than, equal to, or greater
@@ -23,6 +30,21 @@ if (s1[i] == '\0' || s1[i] != s2[i])
 return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
 return (0);
+=======
+ *   - an integer less than, equal to,
+ *     of `s1` are respectively less than, equal to,
+ */
+int _strncmp(const char *s1, const char *s2, size_t n)
+{
+	size_t i;
+
+	for (i = 0; i < n; i++)
+	{
+		if (s1[i] == '\0' || s1[i] != s2[i])
+			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+	}
+	return (0);
+>>>>>>> 6c39c1e214404a9085691deb79d1f1b12275742b
 }
 
 /**
@@ -106,6 +128,7 @@ i++;
 return (len);
 }
 
+<<<<<<< HEAD
 
 
 /**
@@ -135,3 +158,5 @@ va_end(args);
 
 return (result);
 }
+=======
+>>>>>>> 6c39c1e214404a9085691deb79d1f1b12275742b
