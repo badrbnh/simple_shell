@@ -1,12 +1,10 @@
 #include "shell.h"
-
 /**
  * prompt - Function that prompts the user for input
  * @argv: Pointer to array of arguments
  * @envp: Pointer to the environment
  * Return: Integer
  */
-
 int prompt(char **argv, char **envp)
 {
     char *line = NULL;
@@ -18,9 +16,9 @@ int prompt(char **argv, char **envp)
 
     while (status)
     {
-		line = NULL;
-		if(isatty(0))
-        	_puts("$ ");
+        line = NULL;
+        if (isatty(STDIN_FILENO))
+            write(STDOUT_FILENO, "$ ", 2);
         read = getline(&line, &len, stdin);
         if (read == -1)
         {
