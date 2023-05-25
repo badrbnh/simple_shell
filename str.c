@@ -1,26 +1,28 @@
 #include "shell.h"
-
 #include <stdbool.h>
 
 /**
- * strncmp - Function that compares two strings up to a specified number of characters
+ * _strncmp - Function that compares two strings up to a specified
+ * number of characters
  * @s1: Pointer to the first string
  * @s2: Pointer to the second string
  * @n: Number of characters to compare
  * Return:
- *   - an integer less than, equal to, or greater than zero if the first `n` characters
- *     of `s1` are respectively less than, equal to, or greater than the first `n` characters of `s2`.
+ *   - an integer less than, equal to, or greater than zero if the
+ * first `n` characters
+ *     of `s1` are respectively less than, equal to, or greater
+ * than the first `n` characters of `s2`.
  */
 int _strncmp(const char *s1, const char *s2, size_t n)
 {
-    size_t i;
+size_t i;
 
-    for (i = 0; i < n; i++)
-    {
-        if (s1[i] == '\0' || s1[i] != s2[i])
-            return (unsigned char)s1[i] - (unsigned char)s2[i];
-    }
-    return 0;
+for (i = 0; i < n; i++)
+{
+if (s1[i] == '\0' || s1[i] != s2[i])
+return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+}
+return (0);
 }
 
 /**
@@ -33,18 +35,18 @@ int _strncmp(const char *s1, const char *s2, size_t n)
 
 int _strcmp(char *s1, char *s2)
 {
-	int i = 0;
+int i = 0;
 
-	while (s1[i] == s2[i])
-	{
-		if (s1[i] == '\0')
-		{
-			return (0);
-		}
-		i++;
+while (s1[i] == s2[i])
+{
+if (s1[i] == '\0')
+{
+return (0);
+}
+i++;
 
-	}
-	return (s1[i] - s2[i]);
+}
+return (s1[i] - s2[i]);
 }
 
 
@@ -57,7 +59,7 @@ int _strcmp(char *s1, char *s2)
  */
 int _putchar(char c)
 {
-	return (write(1, &c, 1));
+return (write(1, &c, 1));
 }
 
 
@@ -70,17 +72,17 @@ int _putchar(char c)
  */
 char *_strcpy(char *dest, char *src)
 {
-	int i = 0;
+int i = 0;
 
-	if (dest == src || src == 0)
-		return (dest);
-	while (src[i])
-	{
-		dest[i] = src[i];
-		i++;
-	}
-	dest[i] = 0;
-	return (dest);
+if (dest == src || src == 0)
+return (dest);
+while (src[i])
+{
+dest[i] = src[i];
+i++;
+}
+dest[i] = 0;
+return (dest);
 }
 
 /**
@@ -92,16 +94,16 @@ char *_strcpy(char *dest, char *src)
 
 int _strlen(char *s)
 {
-	int len = 0;
-	int i = 0;
+int len = 0;
+int i = 0;
 
-	while (*(s + i) != '\0')
-	{
-		len++;
-		i++;
-	}
+while (*(s + i) != '\0')
+{
+len++;
+i++;
+}
 
-	return (len);
+return (len);
 }
 
 
@@ -113,23 +115,23 @@ int _strlen(char *s)
  */
 size_t _strlen1(const char *str)
 {
-    size_t len = 0;
+size_t len = 0;
 
-    while (str[len] != '\0')
-        len++;
+while (str[len] != '\0')
+len++;
 
-    return len;
+return (len);
 }
 
 
 int _snprintf(char *str, size_t size, const char *format, ...)
 {
-    va_list args;
-    int result;
+va_list args;
+int result;
 
-    va_start(args, format);
-    result = vsnprintf(str, size, format, args);
-    va_end(args);
+va_start(args, format);
+result = vsnprintf(str, size, format, args);
+va_end(args);
 
-    return result;
+return (result);
 }
