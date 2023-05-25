@@ -10,7 +10,6 @@
 #include <errno.h>
 #include <fcntl.h>
 #include <stdbool.h>
-
 #include <stdarg.h>
 #include <stddef.h>
 

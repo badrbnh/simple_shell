@@ -1,7 +1,5 @@
 #include "shell.h"
 
-#include <stdbool.h>
-
 /**
  * _strncmp - Function that compares two strings
  * @s1: Pointer to the first string
