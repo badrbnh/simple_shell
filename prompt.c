@@ -13,6 +13,7 @@ int prompt(char **argv, char **envp)
     char **tokens;
     int status = 1;
     int execute_status = 0;
+	int i;
 
     while (status)
     {
@@ -41,11 +42,14 @@ int prompt(char **argv, char **envp)
         if (_strcmp(tokens[0], "exit") == 0)
         {
             status = 0;
+			free(line);
             free(tokens);
             break;
         }
         execute_status = execute(tokens[0], tokens, argv, envp);
-        free(tokens);
+		for ( i = 0; tokens[i]; i++)
+			free(tokens[i]);
+		free(tokens);
         if (execute_status == -1)
             break;
     }
