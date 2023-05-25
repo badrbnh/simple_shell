@@ -13,7 +13,6 @@ int prompt(char **argv, char **envp)
     char **tokens;
     int status = 1;
     int execute_status = 0;
-	int i;
 
     while (status)
     {
@@ -47,8 +46,7 @@ int prompt(char **argv, char **envp)
             break;
         }
         execute_status = execute(tokens[0], tokens, argv, envp);
-		for ( i = 0; tokens[i]; i++)
-			free(tokens[i]);
+		free(line);
 		free(tokens);
         if (execute_status == -1)
             break;
