@@ -47,3 +47,69 @@ char *_strtok(char *str, const char *del) {
 
     return (token);
 }
+
+#include "main.h"
+
+/**
+ * _strspn - function that gets the length of a prefix substring
+ * @s: main 1st argument
+ * @accept: 2nd argument
+ * Return: number of bytes in the initial segment of s which
+ * consist only of bytes from accept
+ */
+unsigned int _strspn(char *s, char *accept)
+{
+unsigned int m = 1, n = 0;
+int i = 0, j;
+while (s[i])
+{
+if (m == 0)
+{
+return (n);
+}
+j = 0;
+while (accept[j])
+{
+if (s[i] == accept[j])
+{
+n++;
+m = 1;
+break;
+}
+j++;
+m = 0;
+}
+i++;
+}
+
+return (n);
+}
+
+#include "main.h"
+
+/**
+ * _strpbrk - function that searches a string for any of a set of bytes
+ * @s: string in which the character is to be found
+ * @accept: character to be found
+ * Return: pointer to the first occurrence of the character c
+ * or NULL if not found
+ */
+char *_strpbrk(char *s, char *accept)
+{
+int j;
+while (*s)
+{
+j = 0;
+while (*(accept + j))
+{
+if (*s == *(accept + j))
+{
+return (s);
+}
+j++;
+}
+s++;
+}
+return (0);
+
+}
