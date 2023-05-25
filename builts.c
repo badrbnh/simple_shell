@@ -4,7 +4,7 @@
  * cmd_env - prints the current environment
  * @envp: Pointer to the environment variables
  */
-static void cmd_env(char **envp)
+void cmd_env(char **envp)
 {
 	unsigned int i;
 
@@ -27,7 +27,7 @@ static void cmd_env(char **envp)
  * @args: Array of arguments
  * @status: Pointer to the status variable
  */
-static void cmd_exit(char **args, int *status)
+void cmd_exit(char **args, int *status)
 {
 	if (args[1])
 	{

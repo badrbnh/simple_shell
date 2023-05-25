@@ -3,7 +3,7 @@
 #include <stdbool.h>
 
 /**
- * strncmp - Function that compares two strings
+ * _strncmp - Function that compares two strings
  * @s1: Pointer to the first string
  * @s2: Pointer to the second string
  * @n: Number of characters to compare
