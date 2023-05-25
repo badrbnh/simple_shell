@@ -23,7 +23,7 @@ int execute(char *cmd, char **argv, char **av, char **envp)
 				perror("Failed to allocate memory");
 				return (-1);
 			}
-			strcpy(full_path, cmd);
+			_strcpy(full_path, cmd);
 		}
 		else
 		{
