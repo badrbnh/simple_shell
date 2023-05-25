@@ -1,4 +1,8 @@
 #include "shell.h"
+#include <unistd.h>
+#include <stdio.h>
+
+#define COMMAND_NOT_FOUND 127
 
 /**
  * execute - Function that executes the command
@@ -8,7 +12,7 @@
  * @envp: Pointer to environment variables
  * Return: Integer
  */
-int execute(char *cmd, char *argv[], char **av, char **envp)
+int execute(char *cmd, char **argv, char **av, char **envp)
 {
     pid_t pid;
     int status;
@@ -28,16 +32,20 @@ int execute(char *cmd, char *argv[], char **av, char **envp)
         }
         else
         {
-            perror("command not found");
-            return (-1);
+            char error_message[100];
+            snprintf(error_message, sizeof(error_message), "%s: command not found\n", cmd);
+            write(STDERR_FILENO, error_message, _strlen(error_message));
+            return COMMAND_NOT_FOUND;
         }
     }
     else
     {
         if (!path(cmd, &full_path))
         {
-            perror("command not found");
-            return (-1);
+            char error_message[100];
+            _snprintf(error_message, sizeof(error_message), "%s: command not found\n", cmd);
+            write(STDERR_FILENO, error_message, _strlen(error_message));
+            return COMMAND_NOT_FOUND;
         }
     }
 
@@ -53,7 +61,6 @@ int execute(char *cmd, char *argv[], char **av, char **envp)
         if (execve(full_path, argv, envp) == -1)
         {
             perror(av[0]);
-            free(full_path);
             exit(EXIT_FAILURE);
         }
     }
@@ -62,6 +69,7 @@ int execute(char *cmd, char *argv[], char **av, char **envp)
         if (waitpid(pid, &status, 0) == -1)
         {
             perror(av[0]);
+            free(full_path);
             return (-1);
         }
     }

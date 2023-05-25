@@ -29,7 +29,10 @@ int prompt(char **argv, char **envp)
             break;
         }
         if (line[0] == '\n')
-            continue;
+	{
+		free(line);            
+		continue;
+	}
 
         tokens = split(line);
         if (tokens == NULL)
