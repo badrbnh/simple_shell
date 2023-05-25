@@ -5,7 +5,6 @@
  * @line: Pointer to the string
  * Return: Array of tokens
  */
-
 char **split(char *line)
 {
     char *token;

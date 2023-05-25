@@ -1,9 +1,4 @@
 #include "shell.h"
-#include <unistd.h>
-#include <stdio.h>
-
-#define COMMAND_NOT_FOUND 127
-
 /**
  * execute - Function that executes the command
  * @cmd: Pointer to the command
@@ -22,19 +17,19 @@ int execute(char *cmd, char **argv, char **av, char **envp)
     {
         if (access(cmd, X_OK) == 0)
         {
-            full_path = malloc((_strlen(cmd) + 1) * sizeof(char));
+            full_path = malloc((strlen(cmd) + 1) * sizeof(char));
             if (full_path == NULL)
             {
                 perror("Failed to allocate memory");
                 return (-1);
             }
-            _strcpy(full_path, cmd);
+            strcpy(full_path, cmd);
         }
         else
         {
             char error_message[100];
-            snprintf(error_message, sizeof(error_message), "%s: command not found\n", cmd);
-            write(STDERR_FILENO, error_message, _strlen(error_message));
+            _snprintf(error_message, sizeof(error_message), "%s: command not found\n", cmd);
+            write(STDERR_FILENO, error_message, strlen(error_message));
             return COMMAND_NOT_FOUND;
         }
     }
@@ -44,7 +39,7 @@ int execute(char *cmd, char **argv, char **av, char **envp)
         {
             char error_message[100];
             _snprintf(error_message, sizeof(error_message), "%s: command not found\n", cmd);
-            write(STDERR_FILENO, error_message, _strlen(error_message));
+            write(STDERR_FILENO, error_message, strlen(error_message));
             return COMMAND_NOT_FOUND;
         }
     }
