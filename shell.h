@@ -38,6 +38,10 @@ size_t _strlen1(const char *str);
 int _snprintf(char *str, size_t size, const char *format, ...);
 int _atoi(char *s);
 bool is_num(const char *str);
+int _fork(char **av,char **argv, char **envp, char *full_path);
+int _token(char *line, char **argv, char **envp, int *ex);
+int path_tok(char *cmd, char **full_path, char *path_copy);
+
 
 
 #endif

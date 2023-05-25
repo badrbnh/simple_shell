@@ -52,7 +52,7 @@ bool is_num(const char *str)
 
 
 /**
- * _strlen - Function that returns the length of a string
+ * _strlen1 - Function that returns the length of a string
  * @str: Pointer to the string
  * Return: Length of the string
  */

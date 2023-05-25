@@ -17,6 +17,7 @@ static void cmd_env(char **envp)
 	for (i = 0; envp[i]; i++)
 	{
 		size_t len = strlen(envp[i]);
+
 		write(STDOUT_FILENO, envp[i], len);
 		write(STDOUT_FILENO, "\n", 1);
 	}
