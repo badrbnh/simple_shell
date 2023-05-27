@@ -1,7 +1,7 @@
 #include "shell.h"
 
 /**
- * path_tok - Function that tokenize the path
+ * path_tok - Function that tokenizes the path
  * @cmd: command
  * @full_path: The path
  * @path_copy: copy of the path
@@ -61,8 +61,8 @@ int path(char *cmd, char **full_path)
 		return (0);
 	}
 
-	path_tok(cmd, full_path, path_copy);
 	_strcpy(path_copy, path);
+	path_tok(cmd, full_path, path_copy);
 
 	free(path_copy);
 
