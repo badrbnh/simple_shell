@@ -54,6 +54,17 @@ int execute(char *cmd, char **argv, char **av, char **envp)
 {
 	char *full_path = NULL;
 
+		if (_strcmp(cmd, "setenv") == 0)
+	{
+		cmd_setenv(argv);
+		return 1;
+	}
+	else if (_strcmp(cmd, "unsetenv") == 0)
+	{
+		cmd_unsetenv(argv);
+		return 1;
+	}
+
 	if (cmd[0] == '/')
 	{
 		if (access(cmd, X_OK) == 0)
