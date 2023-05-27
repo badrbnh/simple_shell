@@ -40,53 +40,6 @@ int _token(char *line, char **argv, char **envp, int *ex)
  */
 int prompt(char **argv, char **envp)
 {
-<<<<<<< HEAD
-char *line = NULL;
-size_t len = 0;
-ssize_t read;
-char **tokens;
-int status = 1;
-int execute_status = 0;
-
-while (status)
-{
-line = NULL;
-if (isatty(STDIN_FILENO))
-write(STDOUT_FILENO, "$ ", 2);
-read = getline(&line, &len, stdin);
-if (read == -1)
-{
-if (line != NULL)
-free(line);
-break;
-}
-if (line[0] == '\n')
-{
-free(line);
-continue;
-}
-
-tokens = split(line);
-if (tokens == NULL)
-{
-free(line);
-continue;
-}
-if (_strcmp(tokens[0], "exit") == 0)
-{
-status = 0;
-free(line);
-free(tokens);
-break;
-}
-execute_status = execute(tokens[0], tokens, argv, envp);
-free(line);
-free(tokens);
-if (execute_status == -1)
-break;
-}
-return (execute_status);
-=======
 	char *line = NULL;
 	size_t len = 0;
 	ssize_t read;
@@ -114,5 +67,4 @@ return (execute_status);
 			break;
 	}
 	return (execute_status);
->>>>>>> 6c39c1e214404a9085691deb79d1f1b12275742b
 }
