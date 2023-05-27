@@ -53,3 +53,41 @@ void cmd_exit(char **args, int *status)
 
 	*status = 0;
 }
+#include "shell.h"
+
+/**
+ * cmd_setenv - sets or updates an environment variable
+ * @args: Array of arguments
+ * Return: Void
+ */
+void cmd_setenv(char **args)
+{
+	if (args[1] && args[2])
+	{
+		if (setenv(args[1], args[2], 1) == -1)
+			perror("setenv");
+	}
+	else
+	{
+		write(STDERR_FILENO, "setenv: Invalid number of arguments\n", 36);
+	}
+}
+#include "shell.h"
+
+/**
+ * cmd_unsetenv - removes an environment variable
+ * @args: Array of arguments
+ * Return: Void
+ */
+void cmd_unsetenv(char **args)
+{
+	if (args[1])
+	{
+		if (unsetenv(args[1]) == -1)
+			perror("unsetenv");
+	}
+	else
+	{
+		write(STDERR_FILENO, "unsetenv: Missing argument\n", 27);
+	}
+}

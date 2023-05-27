@@ -41,5 +41,8 @@ bool is_num(const char *str);
 int _fork(char **av, char **argv, char **envp, char *full_path);
 int _token(char *line, char **argv, char **envp, int *ex);
 int path_tok(char *cmd, char **full_path, char *path_copy);
+void cmd_setenv(char **args);
+void cmd_unsetenv(char **args);
+
 
 #endif
