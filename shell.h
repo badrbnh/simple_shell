@@ -12,6 +12,8 @@
 #include <stdbool.h>
 #include <stdarg.h>
 #include <stddef.h>
+#include <limits.h>
+
 
 #define MAX_INPUT_SIZE 1024
 #define COMMAND_NOT_FOUND 127
@@ -43,6 +45,7 @@ int _token(char *line, char **argv, char **envp, int *ex);
 int path_tok(char *cmd, char **full_path, char *path_copy);
 void cmd_setenv(char **args);
 void cmd_unsetenv(char **args);
+void cmd_cd(char **args);
 
 
 #endif

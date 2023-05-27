@@ -72,7 +72,6 @@ void cmd_setenv(char **args)
 		write(STDERR_FILENO, "setenv: Invalid number of arguments\n", 36);
 	}
 }
-#include "shell.h"
 
 /**
  * cmd_unsetenv - removes an environment variable
@@ -91,3 +90,4 @@ void cmd_unsetenv(char **args)
 		write(STDERR_FILENO, "unsetenv: Missing argument\n", 27);
 	}
 }
+
